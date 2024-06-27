@@ -27,7 +27,7 @@ builder.Services.AddDbContext<DatabaseContext>(
 #region Repositorios
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<IRepresentanteRepository, RepresentanteRepository>();
-builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
+builder.Services.AddScoped<IPedidoRepository, LocalizacaoRepository>();
 #endregion
 
 #region Services
@@ -47,28 +47,28 @@ var mapperConfig = new AutoMapper.MapperConfiguration(c => {
     // Permite que valores de destino nulos sejam mapeados
     c.AllowNullDestinationValues = true;
 
-    c.CreateMap<ClienteModel, ClienteViewModel>();
+    c.CreateMap<AlertaModel, ClienteViewModel>();
     c.CreateMap<FornecedorModel, FornecedorViewModel>();
     c.CreateMap<LojaModel, LojaViewModel>();
-    c.CreateMap<PedidoModel, PedidoViewModel>();
+    c.CreateMap<LocalizacaoModel, PedidoViewModel>();
     c.CreateMap<PedidoProdutoModel, PedidoProdutoViewModel>();
     c.CreateMap<ProdutoModel, ProdutoViewModel>();
     c.CreateMap<RepresentanteModel, RepresentanteViewModel>();
 
-    c.CreateMap<ClienteViewModel, ClienteModel>();
-    c.CreateMap<ClienteCreateViewModel, ClienteModel>();
-    c.CreateMap<ClienteUpdateViewModel, ClienteModel>();
+    c.CreateMap<ClienteViewModel, AlertaModel>();
+    c.CreateMap<ClienteCreateViewModel, AlertaModel>();
+    c.CreateMap<ClienteUpdateViewModel, AlertaModel>();
 
     c.CreateMap<FornecedorViewModel, FornecedorModel>();
     c.CreateMap<LojaViewModel, LojaModel>();
-    c.CreateMap<PedidoModel, PedidoViewModel>();
-    c.CreateMap<PedidoViewModel, PedidoModel>();
+    c.CreateMap<LocalizacaoModel, PedidoViewModel>();
+    c.CreateMap<PedidoViewModel, LocalizacaoModel>();
     c.CreateMap<PedidoProdutoViewModel, PedidoProdutoModel>();
     c.CreateMap<ProdutoViewModel, ProdutoModel>();
     c.CreateMap<RepresentanteViewModel, RepresentanteModel>();
 
 
-    c.CreateMap<CreatePedidoViewModel, PedidoModel>()
+    c.CreateMap<CreatePedidoViewModel, LocalizacaoModel>()
             .ForMember(dest => dest.PedidoProdutos, opt => opt.MapFrom(src =>
                 src.ProdutoIds.Select(id => new PedidoProdutoModel { ProdutoId = id }).ToList()));
 

@@ -23,12 +23,12 @@ namespace Fiap.Web.Alunos.Controllers
         [HttpPost]
         public ActionResult Post([FromBody] CreatePedidoViewModel createPedidoViewModel)
         {
-            var pedido = _mapper.Map<PedidoModel>(createPedidoViewModel);
+            var pedido = _mapper.Map<LocalizacaoModel>(createPedidoViewModel);
 
             try
             {
                 _pedidoService.AdicionarPedido(pedido);
-                return CreatedAtAction(nameof(GetPedidoById), new { id = pedido.PedidoId }, createPedidoViewModel);
+                return CreatedAtAction(nameof(GetPedidoById), new { id = pedido.LocalizacaoId }, createPedidoViewModel);
             }
             catch (ArgumentException ex)
             {

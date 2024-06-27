@@ -1,6 +1,6 @@
-﻿namespace Fiap.Web.Alunos.Models
+namespace Fiap.Web.Alunos.Models
 {
-    public class ClienteModel
+    public class AlertaModel
     {
         public int ClienteId { get; set; }
         public string? Nome { get; set; }

@@ -7,6 +7,6 @@
         public string Endereco { get; set; }
 
         // Relacionamento com Pedido
-        public List<PedidoModel> Pedidos { get; set; }
+        public List<LocalizacaoModel> Pedidos { get; set; }
     }
 }

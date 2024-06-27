@@ -23,10 +23,10 @@ namespace Fiap.Web.Alunos.Services
 
         public void DeletarRepresentante(int id)
         {
-            var cliente = _repository.GetById(id);
-            if (cliente != null)
+            var alerta = _repository.GetById(id);
+            if (alerta != null)
             {
-                _repository.Delete(cliente);
+                _repository.Delete(alerta);
             }
         }
 

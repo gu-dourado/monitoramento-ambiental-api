@@ -9,6 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\ClienteModel.cs" />
+    <Compile Remove="Models\FornecedorModel.cs" />
+    <Compile Remove="Models\LojaModel.cs" />
+    <Compile Remove="Models\PedidoProdutoModel.cs" />
+    <Compile Remove="Models\ProdutoModel.cs" />
+    <Compile Remove="Services\ClienteService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Asp.Versioning.Http" Version="8.1.0" />
     <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
     <PackageReference Include="AutoMapper" Version="13.0.1" />

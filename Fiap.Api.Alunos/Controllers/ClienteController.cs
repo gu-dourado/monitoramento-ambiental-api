@@ -87,7 +87,7 @@ namespace Fiap.Web.Alunos.Controllers
         [HttpPost]
         public ActionResult Post([FromBody] ClienteCreateViewModel viewModel)
         {
-            var cliente = _mapper.Map<ClienteModel>(viewModel);
+            var cliente = _mapper.Map<AlertaModel>(viewModel);
             _service.CriarCliente(cliente);
             return CreatedAtAction(nameof(Get), new { id = cliente.ClienteId }, cliente);
         }
