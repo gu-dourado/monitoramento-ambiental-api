@@ -32,6 +32,7 @@ public class AlertaRepository : IAlertaRepository
                             .AsNoTracking()
                             .ToList();
 
+
         return alertas;
     }
 

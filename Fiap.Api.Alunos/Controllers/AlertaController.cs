@@ -12,12 +12,12 @@ namespace Fiap.Web.Alunos.Controllers
     [ApiVersion(2)]
     [ApiController]
     [Route("api/v{v:apiVersion}/[controller]")]
-    public class ClienteController : ControllerBase
+    public class AlertaController : ControllerBase
     {
-        private readonly IClienteService _service;
+        private readonly IAlertaService _service;
         private readonly IMapper _mapper;
 
-        public ClienteController(IClienteService service, IMapper mapper)
+        public AlertaController(IAlertaService service, IMapper mapper)
         {
             _service = service;
             _mapper = mapper;
@@ -25,24 +25,24 @@ namespace Fiap.Web.Alunos.Controllers
 
         [MapToApiVersion(1)]
         [HttpGet]
-        public ActionResult<IEnumerable<ClienteViewModel>> Get()
+        public ActionResult<IEnumerable<AlertaViewModel>> Get()
         {
-            var clientes = _service.ListarClientes();
-            var viewModelList = _mapper.Map<IEnumerable<ClienteViewModel>>(clientes);
+            var alertas = _service.ListarAlertas();
+            var viewModelList = _mapper.Map<IEnumerable<AlertaViewModel>>(alertas);
             return Ok(viewModelList);
         }
 
 
         [MapToApiVersion(2)]
         [HttpGet]
-        public ActionResult<IEnumerable<ClientePaginacaoViewModel>> Get([FromQuery] int pagina = 1, [FromQuery] int tamanho = 10)
+        public ActionResult<IEnumerable<AlertaPaginacaoViewModel>> Get([FromQuery] int pagina = 1, [FromQuery] int tamanho = 10)
         {
-            var clientes = _service.ListarClientes(pagina, tamanho);
-            var viewModelList = _mapper.Map<IEnumerable<ClienteViewModel>>(clientes);
+            var alertas = _service.ListarAlertas(pagina, tamanho);
+            var viewModelList = _mapper.Map<IEnumerable<AlertaViewModel>>(alertas);
 
-            var viewModel = new ClientePaginacaoViewModel
+            var viewModel = new AlertaPaginacaoViewModel
             {
-                Clientes = viewModelList,
+                Alertas = viewModelList,
                 CurrentPage = pagina,
                 PageSize = tamanho
             };
@@ -72,42 +72,42 @@ namespace Fiap.Web.Alunos.Controllers
 
         [MapToApiVersion(2)]
         [HttpGet("{id}")]
-        public ActionResult<ClienteViewModel> Get(int id)
+        public ActionResult<AlertaViewModel> Get(int id)
         {
-            var cliente = _service.ObterClientePorId(id);
-            if (cliente == null)
+            var alerta = _service.ObterAlertaPorId(id);
+            if (alerta == null)
                 return NotFound();
 
-            var viewModel = _mapper.Map<ClienteViewModel>(cliente);
+            var viewModel = _mapper.Map<AlertaViewModel>(alerta);
             return Ok(viewModel);
         }
 
         [MapToApiVersion(1)]
         [MapToApiVersion(2)]
         [HttpPost]
-        public ActionResult Post([FromBody] ClienteCreateViewModel viewModel)
+        public ActionResult Post([FromBody] AlertaCreateViewModel viewModel)
         {
-            var cliente = _mapper.Map<AlertaModel>(viewModel);
-            _service.CriarCliente(cliente);
-            return CreatedAtAction(nameof(Get), new { id = cliente.ClienteId }, cliente);
+            var alerta = _mapper.Map<AlertaModel>(viewModel);
+            _service.CriarAlerta(alerta);
+            return CreatedAtAction(nameof(Get), new { id = alerta.AlertaId }, alerta);
         }
 
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] ClienteUpdateViewModel viewModel)
+        public ActionResult Put(int id, [FromBody] AlertaUpdateViewModel viewModel)
         {
-            var clienteExistente = _service.ObterClientePorId(id);
-            if (clienteExistente == null)
+            var alertaExistente = _service.ObterAlertaPorId(id);
+            if (alertaExistente == null)
                 return NotFound();
 
-            _mapper.Map(viewModel, clienteExistente);
-            _service.AtualizarCliente(clienteExistente);
+            _mapper.Map(viewModel, alertaExistente);
+            _service.AtualizarAlerta(alertaExistente);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            _service.DeletarCliente(id);
+            _service.DeletarAlerta(id);
             return NoContent();
         }
     }

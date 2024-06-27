@@ -25,18 +25,17 @@ builder.Services.AddDbContext<DatabaseContext>(
 #endregion
 
 #region Repositorios
-builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<IAlertaRepository, AlertaRepository>();
 builder.Services.AddScoped<IRepresentanteRepository, RepresentanteRepository>();
-builder.Services.AddScoped<IPedidoRepository, LocalizacaoRepository>();
+builder.Services.AddScoped<ILocalizacaoRepository, LocalizacaoRepository>();
 #endregion
 
 #region Services
-builder.Services.AddScoped<IClienteService, ClienteService>();
+builder.Services.AddScoped<IAlertaService, AlertaService>();
 builder.Services.AddScoped<IRepresentanteService, RepresentanteService>();
-builder.Services.AddScoped<IPedidoService, PedidoService>();
+builder.Services.AddScoped<ILocalizacaoService, LocalizacaoService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 #endregion
-
 
 #region AutoMapper
 
@@ -47,30 +46,19 @@ var mapperConfig = new AutoMapper.MapperConfiguration(c => {
     // Permite que valores de destino nulos sejam mapeados
     c.AllowNullDestinationValues = true;
 
-    c.CreateMap<AlertaModel, ClienteViewModel>();
-    c.CreateMap<FornecedorModel, FornecedorViewModel>();
-    c.CreateMap<LojaModel, LojaViewModel>();
-    c.CreateMap<LocalizacaoModel, PedidoViewModel>();
-    c.CreateMap<PedidoProdutoModel, PedidoProdutoViewModel>();
-    c.CreateMap<ProdutoModel, ProdutoViewModel>();
+    c.CreateMap<AlertaModel, AlertaViewModel>();
+    c.CreateMap<LocalizacaoModel, LocalizacaoViewModel>();
     c.CreateMap<RepresentanteModel, RepresentanteViewModel>();
 
-    c.CreateMap<ClienteViewModel, AlertaModel>();
-    c.CreateMap<ClienteCreateViewModel, AlertaModel>();
-    c.CreateMap<ClienteUpdateViewModel, AlertaModel>();
+    c.CreateMap<AlertaViewModel, AlertaModel>();
+    c.CreateMap<AlertaCreateViewModel, AlertaModel>();
+    c.CreateMap<AlertaUpdateViewModel, AlertaModel>();
 
-    c.CreateMap<FornecedorViewModel, FornecedorModel>();
-    c.CreateMap<LojaViewModel, LojaModel>();
-    c.CreateMap<LocalizacaoModel, PedidoViewModel>();
-    c.CreateMap<PedidoViewModel, LocalizacaoModel>();
-    c.CreateMap<PedidoProdutoViewModel, PedidoProdutoModel>();
-    c.CreateMap<ProdutoViewModel, ProdutoModel>();
+    c.CreateMap<LocalizacaoModel, LocalizacaoViewModel>();
+    c.CreateMap<LocalizacaoViewModel, LocalizacaoModel>();
     c.CreateMap<RepresentanteViewModel, RepresentanteModel>();
 
-
-    c.CreateMap<CreatePedidoViewModel, LocalizacaoModel>()
-            .ForMember(dest => dest.PedidoProdutos, opt => opt.MapFrom(src =>
-                src.ProdutoIds.Select(id => new PedidoProdutoModel { ProdutoId = id }).ToList()));
+    c.CreateMap<LocalizacaoCreateViewModel, LocalizacaoModel>();
 
 
 });
