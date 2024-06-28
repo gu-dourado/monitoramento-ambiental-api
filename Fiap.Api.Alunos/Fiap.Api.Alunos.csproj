@@ -9,12 +9,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Repository\IRepresentanteRepository - Copy.cs" />
     <Compile Remove="Models\ClienteModel.cs" />
     <Compile Remove="Models\FornecedorModel.cs" />
     <Compile Remove="Models\LojaModel.cs" />
     <Compile Remove="Models\PedidoProdutoModel.cs" />
     <Compile Remove="Models\ProdutoModel.cs" />
     <Compile Remove="Services\ClienteService.cs" />
+    <Compile Remove="ViewModel\AlertaCreateViewModel.cs" />
+    <Compile Remove="ViewModel\AlertaPaginacaoReferenciaViewModel.cs" />
+    <Compile Remove="ViewModel\AlertaPaginacaoViewModel.cs" />
+    <Compile Remove="ViewModel\AlertaUpdateViewModel.cs" />
+    <Compile Remove="ViewModel\RepresentanteViewModel copy.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,7 +39,12 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
     <PackageReference Include="Oracle.EntityFrameworkCore" Version="8.23.40" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

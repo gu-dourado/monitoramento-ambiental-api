@@ -3,15 +3,13 @@ using Fiap.Web.Alunos.Models;
 using Fiap.Web.Alunos.Services;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
-using Fiap.Api.Alunos.ViewModel;
-using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Fiap.Web.Alunos.Controllers
 {
-    [ApiVersion(1, Deprecated = true)]
-    [ApiVersion(2)]
     [ApiController]
-    [Route("api/v{v:apiVersion}/[controller]")]
+    [Route("api/[controller]")]
+    [Authorize]
     public class AlertaController : ControllerBase
     {
         private readonly IAlertaService _service;
@@ -23,8 +21,8 @@ namespace Fiap.Web.Alunos.Controllers
             _mapper = mapper;
         }
 
-        [MapToApiVersion(1)]
         [HttpGet]
+        [Authorize(Roles = "operador,analista,gerente")]
         public ActionResult<IEnumerable<AlertaViewModel>> Get()
         {
             var alertas = _service.ListarAlertas();
@@ -32,46 +30,8 @@ namespace Fiap.Web.Alunos.Controllers
             return Ok(viewModelList);
         }
 
-
-        [MapToApiVersion(2)]
-        [HttpGet]
-        public ActionResult<IEnumerable<AlertaPaginacaoViewModel>> Get([FromQuery] int pagina = 1, [FromQuery] int tamanho = 10)
-        {
-            var alertas = _service.ListarAlertas(pagina, tamanho);
-            var viewModelList = _mapper.Map<IEnumerable<AlertaViewModel>>(alertas);
-
-            var viewModel = new AlertaPaginacaoViewModel
-            {
-                Alertas = viewModelList,
-                CurrentPage = pagina,
-                PageSize = tamanho
-            };
-
-
-            return Ok(viewModel);
-        }
-
-
-        //[HttpGet]
-        //public ActionResult<IEnumerable<ClientePaginacaoReferenciaViewModel>> Get([FromQuery] int referencia = 0, [FromQuery] int tamanho = 10)
-        //{
-        //    var clientes = _service.ListarClientesUltimaReferencia(referencia, tamanho);
-        //    var viewModelList = _mapper.Map<IEnumerable<ClienteViewModel>>(clientes);
-
-        //    var viewModel = new ClientePaginacaoReferenciaViewModel
-        //    {
-        //        Clientes = viewModelList,
-        //        PageSize = tamanho,
-        //        Ref = referencia,
-        //        NextRef = viewModelList.Last().ClienteId
-        //    };
-
-
-        //    return Ok(viewModel);
-        //}
-
-        [MapToApiVersion(2)]
         [HttpGet("{id}")]
+        [Authorize(Roles = "operador,analista,gerente")]
         public ActionResult<AlertaViewModel> Get(int id)
         {
             var alerta = _service.ObterAlertaPorId(id);
@@ -82,18 +42,18 @@ namespace Fiap.Web.Alunos.Controllers
             return Ok(viewModel);
         }
 
-        [MapToApiVersion(1)]
-        [MapToApiVersion(2)]
         [HttpPost]
-        public ActionResult Post([FromBody] AlertaCreateViewModel viewModel)
+        [Authorize(Roles = "gerente,analista")]
+        public ActionResult Post([FromBody] AlertaViewModel viewModel)
         {
-            var alerta = _mapper.Map<AlertaModel>(viewModel);
+            var alerta = _mapper.Map<AlertaModel > (viewModel);
             _service.CriarAlerta(alerta);
-            return CreatedAtAction(nameof(Get), new { id = alerta.AlertaId }, alerta);
+            return CreatedAtAction(nameof(Get), new { id = alerta.AlertaId }, viewModel);
         }
 
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] AlertaUpdateViewModel viewModel)
+        [Authorize(Roles = "gerente")]
+        public ActionResult Put(int id, [FromBody] AlertaViewModel viewModel)
         {
             var alertaExistente = _service.ObterAlertaPorId(id);
             if (alertaExistente == null)
@@ -105,6 +65,7 @@ namespace Fiap.Web.Alunos.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "gerente")]
         public ActionResult Delete(int id)
         {
             _service.DeletarAlerta(id);

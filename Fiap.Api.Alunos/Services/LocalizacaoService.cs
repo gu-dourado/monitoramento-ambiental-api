@@ -34,19 +34,12 @@ namespace Fiap.Web.Alunos.Services
 
         public void AdicionarLocalizacao(LocalizacaoModel localizacao)
         {
-            if (localizacao.Alerta == null)
-            {
-                throw new ArgumentException("A localizacao deve ter pelo menos um alerta associado.");
-            }
+            
             _localizacaoRepository.Add(localizacao);
         }
 
         public void AtualizarLocalizacao(LocalizacaoModel localizacao)
         {
-            if (localizacao.Alerta == null)
-            {
-                throw new ArgumentException("A localizacao deve ter pelo menos um alerta associado.");
-            }
             _localizacaoRepository.Update(localizacao);
         }
 

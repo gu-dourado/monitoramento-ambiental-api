@@ -51,8 +51,6 @@ var mapperConfig = new AutoMapper.MapperConfiguration(c => {
     c.CreateMap<RepresentanteModel, RepresentanteViewModel>();
 
     c.CreateMap<AlertaViewModel, AlertaModel>();
-    c.CreateMap<AlertaCreateViewModel, AlertaModel>();
-    c.CreateMap<AlertaUpdateViewModel, AlertaModel>();
 
     c.CreateMap<LocalizacaoModel, LocalizacaoViewModel>();
     c.CreateMap<LocalizacaoViewModel, LocalizacaoModel>();

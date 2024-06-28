@@ -4,7 +4,7 @@
     {
         public string? Latitude { get; set; }
         public string? Longitude { get; set; }
-        public string? Nome { get; set; }
-        public int AlertaId { get; set; }
+        
+        
     }
 }

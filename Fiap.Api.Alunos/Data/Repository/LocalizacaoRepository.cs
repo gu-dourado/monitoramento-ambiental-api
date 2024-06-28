@@ -26,7 +26,7 @@
         public IEnumerable<LocalizacaoModel> GetAllWithDetails()
         {
             return _context.Localizacoes
-                .Include(p => p.Alerta)  // Incluir dados do cliente
+                
                 .ToList();
         }
 
@@ -39,7 +39,6 @@
         {
             return _context.Localizacoes
                 .Where(p => p.LocalizacaoId == id)
-                .Include(p => p.Alerta)
                 .FirstOrDefault();
         }
 
